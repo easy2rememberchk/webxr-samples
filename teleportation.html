@@ -57,6 +57,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       import {PbrMaterial} from './js/render/materials/pbr.js';
       import {mat4, vec3, quat} from './js/render/math/gl-matrix.js';
       import {QueryArgs} from './js/util/query-args.js';
+      import {UrlTexture} from './js/render/core/texture.js';
 
       // If requested, use the polyfill to provide support for mobile devices
       // and devices which only support WebVR.
@@ -136,7 +137,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         let boxPrimitive = boxBuilder.finishPrimitive(renderer);
 
         let boxMaterial = new PbrMaterial();
-        boxMaterial.baseColorFactor.value = [0.3, 0.3, 0.3, 1.0];
+        boxMaterial.baseColor.texture = new UrlTexture('media/textures/EG.png');
         let boxRenderPrimitive = renderer.createRenderPrimitive(boxPrimitive, boxMaterial);
 
         floorNode = new Node();
