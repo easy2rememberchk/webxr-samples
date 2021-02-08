@@ -80,8 +80,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       let trackingSpaceOriginInWorldSpace = vec3.create();
       let trackingSpaceHeadingDegrees = 0;  // around +Y axis, positive angles rotate left
-      let floorSize = 10;
-      let floorPosition = [0, -floorSize / 2 + 0.01, 0];
       let floorNode = null;
 
       // WebGL scene globals.
@@ -133,12 +131,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
 
       function addFloorBox() {
+        let tex = new UrlTexture('media/textures/EG.png');
+        let floorPosition = [0, -5 + 0.01, 0];
+        let floorWidth = tex.width / 300;
+        let floorLength = tex.height / 300;
+
         let boxBuilder = new BoxBuilder();
-        boxBuilder.pushCube([0, 0, 0], floorSize);
+        //boxBuilder.pushCube([0, 0, 0], floorSize);
+
+        boxBuilder.pushBox([ -floorWidth, -5, -floorLength ],
+	                   [  floorWidth,  5,  floorLength ]);
+
         let boxPrimitive = boxBuilder.finishPrimitive(renderer);
 
+	window.alert(floorWidth);
+	window.alert(floorLength);
+
         let boxMaterial = new PbrMaterial();
-        boxMaterial.baseColor.texture = new UrlTexture('media/textures/EG.png');
+        boxMaterial.baseColor.texture = tex;
         let boxRenderPrimitive = renderer.createRenderPrimitive(boxPrimitive, boxMaterial);
 
         floorNode = new Node();
