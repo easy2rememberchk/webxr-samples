@@ -130,22 +130,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         scene.addNode(boxNode);
       }
 
-      function addFloorBox() {
+      async function addFloorBox() {
         let tex = new UrlTexture('media/textures/EG.png');
+        await tex.waitForComplete();
+
         let floorPosition = [0, -5 + 0.01, 0];
         let floorWidth = tex.width / 300;
         let floorLength = tex.height / 300;
 
         let boxBuilder = new BoxBuilder();
-        //boxBuilder.pushCube([0, 0, 0], floorSize);
-
         boxBuilder.pushBox([ -floorWidth, -5, -floorLength ],
 	                   [  floorWidth,  5,  floorLength ]);
 
         let boxPrimitive = boxBuilder.finishPrimitive(renderer);
-
-	window.alert(floorWidth);
-	window.alert(floorLength);
 
         let boxMaterial = new PbrMaterial();
         boxMaterial.baseColor.texture = tex;
